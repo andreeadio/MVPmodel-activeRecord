@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Orders</title>
+</head>
+<body>
+
+<h2>Orders</h2>
+
+<div th:if="${msg != null}" style="padding:10px; border:1px solid #ccc; margin-bottom:10px;">
+  <span th:text="${msg}"></span>
+</div>
+
+<form th:action="@{/orders}" method="get">
+  <label>Search:</label>
+  <input type="text" name="q" th:value="${q}"/>
+
+  <label>Status:</label>
+  <select name="status">
+    <option value="">-- all --</option>
+    <option th:each="s: ${allStatuses}"
+            th:value="${s}"
+            th:text="${s}"
+            th:selected="${status != null and status.name() == s.name()}"></option>
+  </select>
+
+  <button type="submit">Filter</button>
+</form>
+
+<br/>
+
+<table border="1" cellpadding="6">
+  <tr>
+    <th>ID</th>
+    <th>Client</th>
+    <th>City</th>
+    <th>Status</th>
+    <th>Details</th>
+  </tr>
+
+  <tr th:each="o : ${orders}">
+    <td th:text="${o.id}"></td>
+    <td th:text="${o.clientName}"></td>
+    <td th:text="${o.city}"></td>
+    <td th:text="${o.status}"></td>
+    <td><a th:href="@{/orders/{id}(id=${o.id})}">View</a></td>
+  </tr>
+</table>
+
+<br/>
+<a th:href="@{/}">Back</a>
+
+</body>
+</html>

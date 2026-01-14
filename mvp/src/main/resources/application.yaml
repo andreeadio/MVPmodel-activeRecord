@@ -1,0 +1,10 @@
+spring:
+  application:
+    name=mvp
+server:
+    servlet:
+        context-path: /home
+    port: 8080
+app:
+  storage:
+    ordersFile: ./data/orders.csv

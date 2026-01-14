@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Order details</title>
+</head>
+<body>
+
+<h2>Order details</h2>
+
+<div>
+  <p><b>ID:</b> <span th:text="${order.id}"></span></p>
+  <p><b>Client:</b> <span th:text="${order.clientName}"></span></p>
+  <p><b>City:</b> <span th:text="${order.city}"></span></p>
+  <p><b>Items:</b> <span th:text="${order.itemsSummary}"></span></p>
+  <p><b>Status:</b> <span th:text="${order.status}"></span></p>
+</div>
+
+<hr/>
+
+<h3>Update status</h3>
+<form th:action="@{/orders/{id}/status(id=${order.id})}" method="post">
+  <label>New status:</label>
+  <select name="newStatus">
+    <option th:each="s: ${allStatuses}" th:value="${s}" th:text="${s}"></option>
+  </select>
+  <button type="submit">Update</button>
+</form>
+
+<p style="color:#666;">
+  (Valid transitions: PRELUATA → PREGATITA → PLATITA → ONORATA)
+</p>
+
+<br/>
+<a th:href="@{/orders}">Back to list</a>
+
+</body>
+</html>
